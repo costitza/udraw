@@ -8,3 +8,4 @@ F:\csharp\Udraw\Udraw\obj\Debug\Udraw.csproj.GenerateResource.cache
 F:\csharp\Udraw\Udraw\obj\Debug\Udraw.csproj.CoreCompileInputs.cache
 F:\csharp\Udraw\Udraw\obj\Debug\Udraw.exe
 F:\csharp\Udraw\Udraw\obj\Debug\Udraw.pdb
+F:\csharp\Udraw\Udraw\obj\Debug\Udraw.MenuForm.resources
