@@ -10,18 +10,11 @@ using System.Windows.Forms;
 
 namespace Udraw
 {
-    public partial class StartMenu : Form
+    public partial class MenuForm : Form
     {
-        public StartMenu()
+        public MenuForm()
         {
             InitializeComponent();
-        }
-
-        private void buttonStart_Click(object sender, EventArgs e)
-        {
-            MenuForm menuForm = new MenuForm();
-            menuForm.Show();
-            this.Hide();
         }
     }
 }

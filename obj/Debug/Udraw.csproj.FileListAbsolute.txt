@@ -1,0 +1,10 @@
+F:\csharp\Udraw\Udraw\bin\Debug\Udraw.exe.config
+F:\csharp\Udraw\Udraw\bin\Debug\Udraw.exe
+F:\csharp\Udraw\Udraw\bin\Debug\Udraw.pdb
+F:\csharp\Udraw\Udraw\obj\Debug\Udraw.csproj.AssemblyReference.cache
+F:\csharp\Udraw\Udraw\obj\Debug\Udraw.StartMenu.resources
+F:\csharp\Udraw\Udraw\obj\Debug\Udraw.Properties.Resources.resources
+F:\csharp\Udraw\Udraw\obj\Debug\Udraw.csproj.GenerateResource.cache
+F:\csharp\Udraw\Udraw\obj\Debug\Udraw.csproj.CoreCompileInputs.cache
+F:\csharp\Udraw\Udraw\obj\Debug\Udraw.exe
+F:\csharp\Udraw\Udraw\obj\Debug\Udraw.pdb
