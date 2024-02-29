@@ -123,6 +123,9 @@
     <EmbeddedResource Include="MenuForm.resx">
       <DependentUpon>MenuForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PaintingCanvas.resx">
+      <DependentUpon>PaintingCanvas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StartMenu.resx">
       <DependentUpon>StartMenu.cs</DependentUpon>
     </EmbeddedResource>
@@ -152,6 +155,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\pencil.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\fill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\pencil modified.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

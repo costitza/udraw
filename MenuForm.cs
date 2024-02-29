@@ -16,5 +16,11 @@ namespace Udraw
         {
             InitializeComponent();
         }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            PaintingCanvas paintingCanvas = new PaintingCanvas();
+            paintingCanvas.Show();
+        }
     }
 }

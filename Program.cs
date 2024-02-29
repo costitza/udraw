@@ -36,29 +36,6 @@ namespace Udraw
             return 0;
         }
 
-        private static string GetStringValue(YamlMappingNode node, string key)
-        {
-            if (node.Children.ContainsKey(new YamlScalarNode(key)) && node.Children[new YamlScalarNode(key)] is YamlScalarNode scalarNode)
-            {
-                return scalarNode.Value;
-            }
-
-            return null;
-        }
-
-        private static int GetIntValue(YamlMappingNode node, string key)
-        {
-            if (node.Children.ContainsKey(new YamlScalarNode(key)) && node.Children[new YamlScalarNode(key)] is YamlScalarNode scalarNode)
-            {
-                if (int.TryParse(scalarNode.Value, out int result))
-                {
-                    return result;
-                }
-            }
-
-            return 0;
-        }
-
 
 
         /// <summary>
@@ -71,12 +48,11 @@ namespace Udraw
 
             string cnnString = ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString;
 
-            Console.WriteLine(cnnString);
+            ///Console.WriteLine(cnnString);
 
 
             var connectionStringParts = cnnString.Split(';');
 
-            // Create a DatabaseConfig object and set its properties
             var databaseConfig = new DatabaseConfig
             {
                 Host = GetConnectionStringPartValue(connectionStringParts, "Host"),
@@ -100,7 +76,7 @@ namespace Udraw
                 {
                     connection.Open();
                     Console.WriteLine("Database connection established successfully!");
-                    // Continue with other database-related tasks...
+                   
                 }
                 catch (Exception ex)
                 {
