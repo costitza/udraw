@@ -112,6 +112,11 @@
     <Compile Include="PaintingCanvas.Designer.cs">
       <DependentUpon>PaintingCanvas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Shape.cs" />
+    <Compile Include="Shapes\Circle.cs" />
+    <Compile Include="Shapes\Line.cs" />
+    <Compile Include="Shapes\Rectangle.cs" />
+    <Compile Include="Shapes\Triangle.cs" />
     <Compile Include="StartMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -188,6 +193,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\triangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\none.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -13,8 +13,27 @@ namespace Udraw
 {
     public partial class PaintingCanvas : Form
     {
+        //DECLARARE
+        private Point? startPoint = null;
+        private Point? endPoint = null;
+
+
+        private List<Shape> drawnShapes = new List<Shape>();
         private List<Button> colorButtons = new List<Button>();
         private Color currentLineColor = Color.Black;
+        private int currentLineWidth = 2;
+
+        private enum SelectedShape
+        {
+            None,
+            Rectangle,
+            Square,
+            Triangle,
+            Circle,
+            Ellipse,
+            Line
+        }
+
         public PaintingCanvas()
         {
             InitializeComponent();
@@ -25,8 +44,12 @@ namespace Udraw
         {
             pictureBoxCurrentColour.BackColor = currentLineColor;
             GenerateColorButtons();
+            pictureBoxCurrentLine.Image = Image.FromFile(Application.StartupPath + @"\thinline.jpeg");
         }
+        private void panelColourSection_Paint(object sender, PaintEventArgs e)
+        {
 
+        }
         private void pictureBoxPencil_Click(object sender, EventArgs e)
         {
 
@@ -37,11 +60,10 @@ namespace Udraw
 
         }
 
-        private void panelColourSection_Paint(object sender, PaintEventArgs e)
-        {
+        
 
-        }
 
+        /// IAU CULOAREA SELECTATA
         private void ColorButton_Click(object sender, EventArgs e)
         {
             Button clickedButton = (Button)sender;
@@ -53,6 +75,8 @@ namespace Udraw
             pictureBoxCurrentColour.BackColor = currentLineColor;
         }
 
+
+        /// GENERARE DE CULORI
         private void GenerateColorButtons()
         {
             List<Color> colors = new List<Color> {Color.Black, Color.Red, Color.Green, Color.Blue, Color.Yellow, Color.Magenta,
@@ -94,6 +118,26 @@ namespace Udraw
                 count++;
                 
             }
+        }
+
+
+        /// GROSIMEA LINII
+        private void pictureBoxThinline_Click(object sender, EventArgs e)
+        {
+            pictureBoxCurrentLine.Image = Image.FromFile(Application.StartupPath + @"\thinline.jpeg");
+            currentLineWidth = 2;
+        }
+
+        private void pictureBoxMidline_Click(object sender, EventArgs e)
+        {
+            pictureBoxCurrentLine.Image = Image.FromFile(Application.StartupPath + @"\midline.jpeg");
+            currentLineWidth = 3;
+        }
+
+        private void pictureBoxThickline_Click(object sender, EventArgs e)
+        {
+            pictureBoxCurrentLine.Image = Image.FromFile(Application.StartupPath + @"\thickline.jpeg");
+            currentLineWidth = 5;
         }
     }
 }
