@@ -165,5 +165,29 @@
   <ItemGroup>
     <None Include="bin\Debug\pencil modified.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\midline.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\thickline.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\thinline.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\circle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\ellipse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\rectangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\square.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\triangle.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
