@@ -112,10 +112,12 @@
     <Compile Include="PaintingCanvas.Designer.cs">
       <DependentUpon>PaintingCanvas.cs</DependentUpon>
     </Compile>
-    <Compile Include="Shape.cs" />
+    <Compile Include="Shapes\Shape.cs" />
     <Compile Include="Shapes\Circle.cs" />
+    <Compile Include="Shapes\Ellipse.cs" />
     <Compile Include="Shapes\Line.cs" />
     <Compile Include="Shapes\Rectangle.cs" />
+    <Compile Include="Shapes\Square.cs" />
     <Compile Include="Shapes\Triangle.cs" />
     <Compile Include="StartMenu.cs">
       <SubType>Form</SubType>
