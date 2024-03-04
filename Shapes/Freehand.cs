@@ -5,19 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Udraw.Shapes
+namespace Udraw
 {
-    class RectangleShape : Shape
+    class FreehandShape : Shape
     {
-        private Point startPoint;
-        private Point endPoint;
+        private List<Point> freehandPoints;
         private Color color;
         private int width;
 
-        public RectangleShape(Point startPoint, Point endPoint, Color color, int width)
+        public FreehandShape(List<Point> freehandPoints, Color color, int width)
         {
-            this.startPoint = startPoint;
-            this.endPoint = endPoint;
+            this.freehandPoints = freehandPoints;
             this.color = color;
             this.width = width;
         }
@@ -28,15 +26,13 @@ namespace Udraw.Shapes
             {
                 using (Pen pen = new Pen(color, width))
                 {
-                    Rectangle rect = new Rectangle(startPoint.X, startPoint.Y, endPoint.X - startPoint.X, endPoint.Y - startPoint.Y);
-                    g.DrawRectangle(pen, rect);
+                    g.DrawLines(pen, freehandPoints.ToArray());
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error drawing shape: {ex.Message}");
             }
-            
         }
     }
 }

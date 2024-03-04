@@ -112,6 +112,7 @@
     <Compile Include="PaintingCanvas.Designer.cs">
       <DependentUpon>PaintingCanvas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Shapes\Freehand.cs" />
     <Compile Include="Shapes\Shape.cs" />
     <Compile Include="Shapes\Circle.cs" />
     <Compile Include="Shapes\Ellipse.cs" />

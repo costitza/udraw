@@ -10,5 +10,7 @@ namespace Udraw
     abstract class Shape
     {
         public abstract void Draw(Graphics g);
+
+        public virtual List<Point> FreehandPoints { get; set; } = new List<Point>();
     }
 }

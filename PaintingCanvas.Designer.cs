@@ -30,17 +30,17 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PaintingCanvas));
             this.panelTopbar = new System.Windows.Forms.Panel();
+            this.labelCurrentLine = new System.Windows.Forms.Label();
+            this.labelColor = new System.Windows.Forms.Label();
             this.buttonClear = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.panelCurrentColour = new System.Windows.Forms.Panel();
             this.panelColourSection = new System.Windows.Forms.Panel();
-            this.labelColor = new System.Windows.Forms.Label();
             this.panelSidebar = new System.Windows.Forms.Panel();
-            this.panelDrawing = new System.Windows.Forms.Panel();
-            this.labelCurrentLine = new System.Windows.Forms.Label();
             this.labelCurrentShape = new System.Windows.Forms.Label();
+            this.panelDrawing = new System.Windows.Forms.Panel();
             this.pictureBoxCurrentShape = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxLine = new System.Windows.Forms.PictureBox();
             this.pictureBoxTriangle = new System.Windows.Forms.PictureBox();
             this.pictureBoxEllipse = new System.Windows.Forms.PictureBox();
             this.pictureBoxCircle = new System.Windows.Forms.PictureBox();
@@ -57,7 +57,7 @@
             this.panelCurrentColour.SuspendLayout();
             this.panelSidebar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentShape)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLine)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTriangle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEllipse)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCircle)).BeginInit();
@@ -93,6 +93,29 @@
             this.panelTopbar.Size = new System.Drawing.Size(1010, 180);
             this.panelTopbar.TabIndex = 0;
             // 
+            // labelCurrentLine
+            // 
+            this.labelCurrentLine.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelCurrentLine.AutoSize = true;
+            this.labelCurrentLine.Font = new System.Drawing.Font("Rockwell", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCurrentLine.Location = new System.Drawing.Point(420, 141);
+            this.labelCurrentLine.Name = "labelCurrentLine";
+            this.labelCurrentLine.Size = new System.Drawing.Size(206, 20);
+            this.labelCurrentLine.TabIndex = 13;
+            this.labelCurrentLine.Text = "Current line thickness:";
+            // 
+            // labelColor
+            // 
+            this.labelColor.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.labelColor.AutoSize = true;
+            this.labelColor.Font = new System.Drawing.Font("Rockwell", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelColor.Location = new System.Drawing.Point(100, 157);
+            this.labelColor.Name = "labelColor";
+            this.labelColor.Size = new System.Drawing.Size(87, 20);
+            this.labelColor.TabIndex = 0;
+            this.labelColor.Text = "COLOUR";
+            this.labelColor.Click += new System.EventHandler(this.labelColor_Click);
+            // 
             // buttonClear
             // 
             this.buttonClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -104,6 +127,7 @@
             this.buttonClear.TabIndex = 6;
             this.buttonClear.Text = "CLEAR";
             this.buttonClear.UseVisualStyleBackColor = false;
+            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
             // buttonSave
             // 
@@ -137,25 +161,13 @@
             this.panelColourSection.TabIndex = 0;
             this.panelColourSection.Paint += new System.Windows.Forms.PaintEventHandler(this.panelColourSection_Paint);
             // 
-            // labelColor
-            // 
-            this.labelColor.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.labelColor.AutoSize = true;
-            this.labelColor.Font = new System.Drawing.Font("Rockwell", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelColor.Location = new System.Drawing.Point(100, 157);
-            this.labelColor.Name = "labelColor";
-            this.labelColor.Size = new System.Drawing.Size(87, 20);
-            this.labelColor.TabIndex = 0;
-            this.labelColor.Text = "COLOUR";
-            this.labelColor.Click += new System.EventHandler(this.labelColor_Click);
-            // 
             // panelSidebar
             // 
             this.panelSidebar.BackColor = System.Drawing.Color.Tan;
             this.panelSidebar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelSidebar.Controls.Add(this.labelCurrentShape);
             this.panelSidebar.Controls.Add(this.pictureBoxCurrentShape);
-            this.panelSidebar.Controls.Add(this.pictureBox1);
+            this.panelSidebar.Controls.Add(this.pictureBoxLine);
             this.panelSidebar.Controls.Add(this.pictureBoxTriangle);
             this.panelSidebar.Controls.Add(this.pictureBoxEllipse);
             this.panelSidebar.Controls.Add(this.pictureBoxCircle);
@@ -167,6 +179,17 @@
             this.panelSidebar.Size = new System.Drawing.Size(206, 412);
             this.panelSidebar.TabIndex = 1;
             // 
+            // labelCurrentShape
+            // 
+            this.labelCurrentShape.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelCurrentShape.AutoSize = true;
+            this.labelCurrentShape.Font = new System.Drawing.Font("Rockwell", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCurrentShape.Location = new System.Drawing.Point(35, 288);
+            this.labelCurrentShape.Name = "labelCurrentShape";
+            this.labelCurrentShape.Size = new System.Drawing.Size(137, 20);
+            this.labelCurrentShape.TabIndex = 14;
+            this.labelCurrentShape.Text = "Current shape:";
+            // 
             // panelDrawing
             // 
             this.panelDrawing.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -175,28 +198,7 @@
             this.panelDrawing.Name = "panelDrawing";
             this.panelDrawing.Size = new System.Drawing.Size(804, 412);
             this.panelDrawing.TabIndex = 2;
-            // 
-            // labelCurrentLine
-            // 
-            this.labelCurrentLine.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.labelCurrentLine.AutoSize = true;
-            this.labelCurrentLine.Font = new System.Drawing.Font("Rockwell", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCurrentLine.Location = new System.Drawing.Point(420, 141);
-            this.labelCurrentLine.Name = "labelCurrentLine";
-            this.labelCurrentLine.Size = new System.Drawing.Size(206, 20);
-            this.labelCurrentLine.TabIndex = 13;
-            this.labelCurrentLine.Text = "Current line thickness:";
-            // 
-            // labelCurrentShape
-            // 
-            this.labelCurrentShape.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.labelCurrentShape.AutoSize = true;
-            this.labelCurrentShape.Font = new System.Drawing.Font("Rockwell", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCurrentShape.Location = new System.Drawing.Point(35, 288);
-            this.labelCurrentShape.Name = "labelCurrentShape";
-            this.labelCurrentShape.Size = new System.Drawing.Size(137, 20);
-            this.labelCurrentShape.TabIndex = 14;
-            this.labelCurrentShape.Text = "Current shape:";
+            this.panelDrawing.Paint += new System.Windows.Forms.PaintEventHandler(this.panelDrawing_Paint);
             // 
             // pictureBoxCurrentShape
             // 
@@ -211,18 +213,18 @@
             this.pictureBoxCurrentShape.TabIndex = 6;
             this.pictureBoxCurrentShape.TabStop = false;
             // 
-            // pictureBox1
+            // pictureBoxLine
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Image = global::Udraw.Properties.Resources.line;
-            this.pictureBox1.Location = new System.Drawing.Point(118, 197);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(58, 56);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
+            this.pictureBoxLine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureBoxLine.BackColor = System.Drawing.Color.White;
+            this.pictureBoxLine.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxLine.Image = global::Udraw.Properties.Resources.line;
+            this.pictureBoxLine.Location = new System.Drawing.Point(118, 197);
+            this.pictureBoxLine.Name = "pictureBoxLine";
+            this.pictureBoxLine.Size = new System.Drawing.Size(58, 56);
+            this.pictureBoxLine.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxLine.TabIndex = 5;
+            this.pictureBoxLine.TabStop = false;
             // 
             // pictureBoxTriangle
             // 
@@ -396,7 +398,7 @@
             this.panelSidebar.ResumeLayout(false);
             this.panelSidebar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentShape)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLine)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTriangle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEllipse)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCircle)).EndInit();
@@ -436,7 +438,7 @@
         private System.Windows.Forms.PictureBox pictureBoxRectangle;
         private System.Windows.Forms.Label labelCurrentLine;
         private System.Windows.Forms.PictureBox pictureBoxCurrentLine;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBoxLine;
         private System.Windows.Forms.Label labelCurrentShape;
         private System.Windows.Forms.PictureBox pictureBoxCurrentShape;
     }
