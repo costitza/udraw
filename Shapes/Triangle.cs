@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace Udraw.Shapes
 {
@@ -35,5 +33,40 @@ namespace Udraw.Shapes
                 g.DrawPolygon(pen, points);
             }
         }
+
+        public override string ToJson()
+        {
+            // Create a dictionary to represent the shape properties
+            var shapeProperties = new Dictionary<string, object>
+            {
+                { "Type", "TriangleShape" },
+                { "StartPoint", new { X = startPoint.X, Y = startPoint.Y } },
+                { "EndPoint", new { X = endPoint.X, Y = endPoint.Y } },
+                { "Color", color.ToArgb() },
+                { "Width", width }
+            };
+
+            // Serialize the dictionary to JSON
+            return JsonSerializer.Serialize(shapeProperties);
+        }
+
+        // Inside TriangleShape class
+        public static TriangleShape FromJson(string json)
+        {
+            try
+            {
+                // Deserialize the JSON string into a TriangleShape instance
+                TriangleShape triangleShape = JsonSerializer.Deserialize<TriangleShape>(json);
+
+                // Return the deserialized TriangleShape
+                return triangleShape;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deserializing TriangleShape from JSON: {ex.Message}");
+                return null;
+            }
+        }
+
     }
 }

@@ -99,7 +99,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Board.cs" />
     <Compile Include="DatabaseConfig.cs" />
+    <Compile Include="DatabaseHelper.cs" />
     <Compile Include="MenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +113,12 @@
     </Compile>
     <Compile Include="PaintingCanvas.Designer.cs">
       <DependentUpon>PaintingCanvas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SaveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SaveForm.Designer.cs">
+      <DependentUpon>SaveForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Shapes\Freehand.cs" />
     <Compile Include="Shapes\Shape.cs" />
@@ -133,6 +141,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PaintingCanvas.resx">
       <DependentUpon>PaintingCanvas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SaveForm.resx">
+      <DependentUpon>SaveForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StartMenu.resx">
       <DependentUpon>StartMenu.cs</DependentUpon>

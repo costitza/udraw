@@ -106,6 +106,7 @@
             this.buttonBoards.TabIndex = 0;
             this.buttonBoards.Text = "Your recent boards";
             this.buttonBoards.UseVisualStyleBackColor = false;
+            this.buttonBoards.Click += new System.EventHandler(this.buttonBoards_Click);
             // 
             // panelBoards
             // 
@@ -126,6 +127,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MenuForm";
             this.Text = "Udraw";
+            this.Load += new System.EventHandler(this.MenuForm_Load);
             this.panelAction.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -40,9 +41,14 @@ namespace Udraw
             Freehand
         }
 
-        public PaintingCanvas()
+        public PaintingCanvas(Board board)
         {
             InitializeComponent();
+
+            if(board != null)
+            {
+                drawnShapes = board.DrawingData;
+            }
 
             panelDrawing.Paint += panelDrawing_Paint;
             panelDrawing.MouseDown += panelDrawing_MouseDown;
@@ -91,10 +97,14 @@ namespace Udraw
         
         private void panelDrawing_Paint(object sender, PaintEventArgs e)
         {
-            foreach (var shape in drawnShapes)
+            if(drawnShapes != null)
             {
-                shape.Draw(e.Graphics);
+                foreach (var shape in drawnShapes)
+                {
+                    shape.Draw(e.Graphics);
+                }
             }
+            
         }
         
         private void panelDrawing_MouseDown(object sender, MouseEventArgs e)
@@ -279,6 +289,17 @@ namespace Udraw
             drawnShapes.Clear();
             resetVariables();
             panelDrawing.Invalidate();
+        }
+
+        // SALVARE IN BAZA DE DATE
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            NpgsqlConnection connection = new NpgsqlConnection(DatabaseConfig.Instance.GetConnectionString());
+
+            Console.WriteLine(drawnShapes.ToArray());
+            SaveForm saveForm = new SaveForm(connection, drawnShapes);
+
+            saveForm.ShowDialog();
         }
     }
 }

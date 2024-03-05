@@ -11,6 +11,7 @@ using Npgsql;
 
 namespace Udraw
 {
+
     internal static class Program
     {
         private static string GetConnectionStringPartValue(string[] parts, string key)
@@ -53,22 +54,30 @@ namespace Udraw
 
             var connectionStringParts = cnnString.Split(';');
 
-            var databaseConfig = new DatabaseConfig
+            DatabaseConfig.Instance.Host = GetConnectionStringPartValue(connectionStringParts, "Host");
+            DatabaseConfig.Instance.Port = GetConnectionStringPartIntValue(connectionStringParts, "Port");
+            DatabaseConfig.Instance.Username = GetConnectionStringPartValue(connectionStringParts, "username");
+            DatabaseConfig.Instance.Password = GetConnectionStringPartValue(connectionStringParts, "password");
+            DatabaseConfig.Instance.Database = GetConnectionStringPartValue(connectionStringParts, "Database");
+
+            /*var databaseConfig = new DatabaseConfig
             {
                 Host = GetConnectionStringPartValue(connectionStringParts, "Host"),
                 Port = GetConnectionStringPartIntValue(connectionStringParts, "Port"),
                 Username = GetConnectionStringPartValue(connectionStringParts, "username"),
                 Password = GetConnectionStringPartValue(connectionStringParts, "password"),
                 Database = GetConnectionStringPartValue(connectionStringParts, "Database")
-            };
+            };*/
 
-            Console.WriteLine($"Host: {databaseConfig.Host}");
+            /*Console.WriteLine($"Host: {databaseConfig.Host}");
             Console.WriteLine($"Port: {databaseConfig.Port}");
             Console.WriteLine($"Username: {databaseConfig.Username}");
             Console.WriteLine($"Password: {databaseConfig.Password}");
-            Console.WriteLine($"Database: {databaseConfig.Database}");
+            Console.WriteLine($"Database: {databaseConfig.Database}");*/
 
-            string connectionString = $"Host={databaseConfig.Host};Port={databaseConfig.Port};Username={databaseConfig.Username};Password={databaseConfig.Password};Database={databaseConfig.Database}";
+            //string connectionString = $"Host={databaseConfig.Host};Port={databaseConfig.Port};Username={databaseConfig.Username};Password={databaseConfig.Password};Database={databaseConfig.Database}";
+            string connectionString = DatabaseConfig.Instance.GetConnectionString();
+
 
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
