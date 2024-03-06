@@ -23,6 +23,7 @@ namespace Udraw
 
 
         private List<Shape> drawnShapes = new List<Shape>();
+        private List<FreehandShape> drawnFreehandShapes = new List<FreehandShape>();
         private List<Point> currentFreehandPoints = new List<Point>();
         private List<Button> colorButtons = new List<Button>();
         private Color currentLineColor = Color.Black;
@@ -47,7 +48,8 @@ namespace Udraw
 
             if(board != null)
             {
-                drawnShapes = board.DrawingData;
+                drawnShapes = board.DrawingDataShapes;
+                drawnFreehandShapes = board.DrawingFreehandShapes;
             }
 
             panelDrawing.Paint += panelDrawing_Paint;
@@ -105,6 +107,13 @@ namespace Udraw
                 }
             }
             
+            if(drawnFreehandShapes != null)
+            {
+                foreach(var shape in drawnFreehandShapes)
+                {
+                    shape.Draw(e.Graphics);
+                }
+            }
         }
         
         private void panelDrawing_MouseDown(object sender, MouseEventArgs e)
@@ -143,7 +152,7 @@ namespace Udraw
             if (currentShape == SelectedShape.Freehand)
             {
                 
-                drawnShapes.Add(new FreehandShape(new List<Point>(currentFreehandPoints), currentLineColor, currentLineWidth));
+                drawnFreehandShapes.Add(new FreehandShape(new List<Point>(currentFreehandPoints), currentLineColor, currentLineWidth));
 
                 currentFreehandPoints.Clear();
                 panelDrawing.Invalidate();
@@ -297,7 +306,7 @@ namespace Udraw
             NpgsqlConnection connection = new NpgsqlConnection(DatabaseConfig.Instance.GetConnectionString());
 
             Console.WriteLine(drawnShapes.ToArray());
-            SaveForm saveForm = new SaveForm(connection, drawnShapes);
+            SaveForm saveForm = new SaveForm(connection, drawnShapes, drawnFreehandShapes);
 
             saveForm.ShowDialog();
         }

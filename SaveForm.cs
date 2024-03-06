@@ -16,20 +16,21 @@ namespace Udraw
     {
         private NpgsqlConnection databaseConnection;
         private List<Shape> drawingData;
+        private List<FreehandShape> drawingFreehand;
 
-
-        public SaveForm(NpgsqlConnection connection, List<Shape> drawingData)
+        public SaveForm(NpgsqlConnection connection, List<Shape> drawingData, List<FreehandShape> drawingFreehand)
         {
             InitializeComponent();
             this.databaseConnection = connection;
             this.drawingData = drawingData;
+            this.drawingFreehand = drawingFreehand;
         }
-        private void SaveBoardToDatabase(string boardName, List<Shape> drawingData)
+        private void SaveBoardToDatabase(string boardName, List<Shape> drawingData, List<FreehandShape> drawingFreehand)
         {
             try
             {
 
-                Board board = new Board { Name = boardName, DrawingData = drawingData };
+                Board board = new Board { Name = boardName, DrawingDataShapes = drawingData, DrawingFreehandShapes = drawingFreehand };
 
                 int boardId = DatabaseHelper.AddNewBoard(databaseConnection, board);
 
@@ -53,7 +54,7 @@ namespace Udraw
         {
             if(textBoxBoardName.Text != null)
             {
-                SaveBoardToDatabase((string)textBoxBoardName.Text, drawingData);
+                SaveBoardToDatabase((string)textBoxBoardName.Text, drawingData, drawingFreehand);
                 this.Close();
             }
             else

@@ -23,7 +23,8 @@ namespace Udraw
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             List<Shape> emptyDrawingData = new List<Shape>();
-            Board emptyBoard = new Board(0, "", emptyDrawingData);
+            List<FreehandShape> emptyFreehandData = new List<FreehandShape>();
+            Board emptyBoard = new Board(0, "", emptyDrawingData, emptyFreehandData);
             PaintingCanvas paintingCanvas = new PaintingCanvas(emptyBoard);
             paintingCanvas.Show();
         }

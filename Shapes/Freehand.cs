@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace Udraw
 {
-    class FreehandShape : Shape
+    public class FreehandShape
     {
         private List<Point> freehandPoints;
         private Color color;
@@ -19,7 +19,7 @@ namespace Udraw
             this.width = width;
         }
 
-        public override void Draw(Graphics g)
+        public void Draw(Graphics g)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace Udraw
             }
         }
 
-        public override string ToJson()
+        public string ToJson()
         {
             // Create a dictionary to represent the shape properties
             var shapeProperties = new Dictionary<string, object>

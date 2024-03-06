@@ -10,13 +10,15 @@ namespace Udraw
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<Shape> DrawingData { get; set; }
+        public List<Shape> DrawingDataShapes { get; set; }
+        public List<FreehandShape> DrawingFreehandShapes { get; set; }
 
-        public Board(int id, string name, List<Shape> drawingData)
+        public Board(int id, string name, List<Shape> drawingDataShapes, List<FreehandShape> drawingFreehandShapes)
         {
             Id = id;
             Name = name;
-            DrawingData = drawingData;
+            DrawingDataShapes = drawingDataShapes;
+            DrawingFreehandShapes = drawingFreehandShapes;
         }
 
         public Board()
