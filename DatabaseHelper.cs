@@ -30,7 +30,11 @@ namespace Udraw
                             string boardName = reader["name"].ToString();
                             string drawingDataJson = reader["drawing_data"].ToString();
 
+
+
                             List<Shape> drawingData = DeserializeShapesFromJson(drawingDataJson);
+
+                            Console.WriteLine(drawingData);
 
                             Board board = new Board(boardId, boardName, drawingData);
                             boards.Add(board);
@@ -99,7 +103,7 @@ namespace Udraw
 
 
 
-        // Inside DatabaseHelper class
+        
         public static int AddNewBoard(NpgsqlConnection connection, Board board)
         {
             try
