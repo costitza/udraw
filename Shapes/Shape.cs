@@ -11,6 +11,10 @@ namespace Udraw
     [Serializable]
     public abstract class Shape
     {
+        public abstract Point startPoint { get; set; }
+        public abstract Point endPoint { get; set; }
+        public abstract Color color { get; set; }
+        public abstract int width { get; set; }
         public Shape() { }
 
         public abstract void Draw(Graphics g);

@@ -2,11 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Udraw.Shapes;
+using static System.Windows.Forms.LinkLabel;
 
 namespace Udraw
 {
@@ -20,29 +22,54 @@ namespace Udraw
             {
                 connection.Open();
 
-                using (NpgsqlCommand command = new NpgsqlCommand("SELECT id, name, drawing_data_shapes, drawing_data_freehand FROM boards", connection))
+                using (NpgsqlTransaction transaction = connection.BeginTransaction())
                 {
-                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    try
                     {
-                        while (reader.Read())
-                        {
-                            int boardId = Convert.ToInt32(reader["id"]);
-                            string boardName = reader["name"].ToString();
-                            string drawingDataShapesJson = reader["drawing_data_shapes"].ToString();
-                            string drawingDataFreehandJson = reader["drawing_data_freehand"].ToString();
+                        List<int> boardIds = new List<int>();
+                        List<string> boardNames = new List<string>();
 
-                            List<Shape> drawingDataShapes = DeserializeShapesFromJson(drawingDataShapesJson);
-                            List<FreehandShape> drawingDataFreehand = DeserializeFreehandShapesFromJson(drawingDataFreehandJson);
+                        // Step 1: Fetch boards
+                        using (NpgsqlCommand command = new NpgsqlCommand("SELECT id, name FROM boards", connection, transaction))
+                        {
+                            using (NpgsqlDataReader reader = command.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    boardIds.Add(Convert.ToInt32(reader["id"]));
+                                    boardNames.Add(reader["name"].ToString());
+                                }
+                            }
+                        }
+
+                        // Step 2: Fetch regular shapes for each board
+                        for (int i = 0; i < boardIds.Count; i++)
+                        {
+                            int boardId = boardIds[i];
+                            string boardName = boardNames[i];
+
+                            List<Shape> drawingDataShapes = GetRegularShapesForBoard(connection, boardId);
+                            List<FreehandShape> drawingDataFreehand = GetFreehandShapesForBoard(connection, boardId);
 
                             Board board = new Board(boardId, boardName, drawingDataShapes, drawingDataFreehand);
                             boards.Add(board);
                         }
+
+                        // Commit the transaction
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error during transaction: {ex.Message}");
+
+                        // Rollback the transaction in case of an exception
+                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error retrieving boards: {ex.Message}");
+                Console.WriteLine($"Error opening connection: {ex.Message}");
             }
             finally
             {
@@ -53,91 +80,149 @@ namespace Udraw
             return boards;
         }
 
-        private static List<Shape> DeserializeShapesFromJson(string json)
+
+        private static List<Shape> GetRegularShapesForBoard(NpgsqlConnection connection, int boardId)
         {
-            List<Shape> shapes = new List<Shape>();
+            List<Shape> regularShapes = new List<Shape>();
+
             try
             {
-                
-
-                Console.WriteLine($"Raw JSON Data (Shapes): {json}");
-
-                // Deserialize the JSON array into a list of dictionaries
-                List<Dictionary<string, object>> shapeDataList = JsonSerializer.Deserialize<List<Dictionary<string, object>>>(json);
-
-                // Iterate through each dictionary and create the corresponding shape
-                foreach (var shapeData in shapeDataList)
+                using (NpgsqlCommand command = new NpgsqlCommand("SELECT type, linewidth, color, startpoint_x, startpoint_y, endpoint_x, endpoint_y FROM regular_shapes WHERE board_id = @boardId", connection))
                 {
-                    // Determine the shape type based on the data
-                    if (shapeData.TryGetValue("Type", out object shapeType))
+                    command.Parameters.AddWithValue("@boardId", boardId);
+
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
                     {
-                        switch (shapeType.ToString())
+                       
+                        while (reader.Read())
                         {
-                            case "RectangleShape":
-                                shapes.Add(RectangleShape.FromJson(shapeData["Data"].ToString()));
-                                break;
-                            case "CircleShape":
-                                shapes.Add(CircleShape.FromJson(shapeData["Data"].ToString()));
-                                break;
-                            case "EllipseShape":
-                                shapes.Add(EllipseShape.FromJson(shapeData["Data"].ToString()));
-                                break;
-                            case "LineShape":
-                                shapes.Add(LineShape.FromJson(shapeData["Data"].ToString()));
-                                break;
-                            case "SquareShape":
-                                shapes.Add(SquareShape.FromJson(shapeData["Data"].ToString()));
-                                break;
-                            case "TriangleShape":
-                                shapes.Add(TriangleShape.FromJson(shapeData["Data"].ToString()));
-                                break;
-                            default:
-                                Console.WriteLine($"Unknown shape type: {shapeType}");
-                                break;
+                            string shapeType = reader["type"].ToString();
+                            int lineWidth = Convert.ToInt32(reader["linewidth"]);
+                            Color color = Color.FromArgb(Convert.ToInt32(reader["color"]));
+                            Point startPoint = new Point(Convert.ToInt32(reader["startpoint_x"]), Convert.ToInt32(reader["startpoint_y"]));
+                            Point endPoint = new Point(Convert.ToInt32(reader["endpoint_x"]), Convert.ToInt32(reader["endpoint_y"]));
+
+                            
+                            Shape shape = CreateShape(shapeType, lineWidth, color, startPoint, endPoint);
+                            regularShapes.Add(shape);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error during deserialization (Shapes): {ex.Message}");
+                Console.WriteLine($"Error retrieving regular shapes: {ex.Message}");
             }
 
-
-            return shapes;
+            return regularShapes;
         }
 
-        private static List<FreehandShape> DeserializeFreehandShapesFromJson(string json)
+        private static List<FreehandShape> GetFreehandShapesForBoard(NpgsqlConnection connection, int boardId)
         {
             List<FreehandShape> freehandShapes = new List<FreehandShape>();
 
             try
             {
-                Console.WriteLine($"Raw JSON Data (Freehand): {json}");
+                List<int> freehandShapeIds = new List<int>();
+                List<int> linewidths = new List<int>();
+                List<Color> colors = new List<Color>();
 
-                // Deserialize the JSON array into a list of dictionaries
-                List<Dictionary<string, object>> shapeDataList = JsonSerializer.Deserialize<List<Dictionary<string, object>>>(json);
-
-                // Iterate through each dictionary and create the corresponding freehand shape
-                foreach (var shapeData in shapeDataList)
+                using (NpgsqlCommand command = new NpgsqlCommand("SELECT id, linewidth, color FROM freehand_shapes WHERE board_id = @boardId", connection))
                 {
-                    // Determine the shape type based on the data
-                    if (shapeData.TryGetValue("Type", out object shapeType) && shapeType.ToString() == "FreehandShape")
+                    command.Parameters.AddWithValue("@boardId", boardId);
+
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
                     {
-                        freehandShapes.Add(FreehandShape.FromJson(shapeData["Data"].ToString()));
+
+
+                        while (reader.Read())
+                        {
+                            freehandShapeIds.Add(Convert.ToInt32(reader["id"]));
+                            linewidths.Add(Convert.ToInt32(reader["linewidth"]));
+                            colors.Add(Color.FromArgb(Convert.ToInt32(reader["color"])));
+ 
+                        }
+                    }
+                }
+
+                for (int i = 0; i < freehandShapeIds.Count; i++)
+                {
+                    int freehandShapeId = freehandShapeIds[i];
+                    int lineWidth = linewidths[i];
+                    Color color = colors[i];
+
+                    List<Point> freehandPoints = GetFreehandPointsForShape(connection, freehandShapeId);
+
+                    FreehandShape freehandShape = new FreehandShape(freehandPoints, color, lineWidth);
+                    freehandShapes.Add(freehandShape);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving freehand shapes: {ex.Message}");
+            }
+
+            return freehandShapes;
+        }
+
+        private static List<Point> GetFreehandPointsForShape(NpgsqlConnection connection, int freehandShapeId)
+        {
+            List<Point> freehandPoints = new List<Point>();
+
+            try
+            {
+                using (NpgsqlCommand command = new NpgsqlCommand("SELECT point_x, point_y FROM points WHERE freehandshape_id = @freehandShapeId", connection))
+                {
+                    command.Parameters.AddWithValue("@freehandShapeId", freehandShapeId);
+
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int pointX = Convert.ToInt32(reader["point_x"]);
+                            int pointY = Convert.ToInt32(reader["point_y"]);
+
+                            Point point = new Point(pointX, pointY);
+                            freehandPoints.Add(point);
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error during deserialization (Freehand): {ex.Message}");
+                Console.WriteLine($"Error retrieving freehand points: {ex.Message}");
             }
 
-
-            return freehandShapes;
+            return freehandPoints;
         }
 
+        private static Shape CreateShape(string shapeType, int lineWidth, Color color, Point startPoint, Point endPoint)
+        {
+            switch (shapeType)
+            {
+                case "TriangleShape":
+                    return new TriangleShape(startPoint, endPoint, color, lineWidth);
 
+                case "SquareShape":
+                    return new SquareShape(startPoint, endPoint, color, lineWidth);
+
+                case "RectangleShape":
+                    return new RectangleShape(startPoint, endPoint, color, lineWidth);
+
+                case "LineShape":
+                    return new LineShape(startPoint, endPoint, color, lineWidth);
+
+                case "EllipseShape":
+                    return new EllipseShape(startPoint, endPoint, color, lineWidth);
+
+                case "CircleShape":
+                    return new CircleShape(startPoint, endPoint, color, lineWidth);
+
+                default:
+                    Console.WriteLine($"Unknown shape type: {shapeType}");
+                    return null;
+            }
+        }
 
 
 
@@ -147,26 +232,101 @@ namespace Udraw
             {
                 connection.Open();
 
-                // Serialize each list independently
-                var drawingDataJson = JsonSerializer.Serialize(board.DrawingDataShapes.Select(shape => shape.ToJson()));
-                var freehandDataJson = JsonSerializer.Serialize(board.DrawingFreehandShapes.Select(shape => shape.ToJson()));
-
-                using (NpgsqlCommand command = new NpgsqlCommand("INSERT INTO boards (name, drawing_data_shapes, drawing_data_freehand) VALUES (@name, @drawingDataShapes::jsonb, @drawingDataFreehand::jsonb) RETURNING id", connection))
+                using (NpgsqlTransaction transaction = connection.BeginTransaction())
                 {
-                    command.Parameters.AddWithValue("@name", board.Name);
-                    command.Parameters.AddWithValue("@drawingDataShapes", drawingDataJson);
-                    command.Parameters.AddWithValue("@drawingDataFreehand", freehandDataJson);
+                    try
+                    {
+                        // Step 1: salvez board
+                        using (NpgsqlCommand boardCommand = new NpgsqlCommand("INSERT INTO boards (name) VALUES (@name) RETURNING id", connection))
+                        {
+                            boardCommand.Parameters.AddWithValue("@name", board.Name);
+                            int boardId = (int)boardCommand.ExecuteScalar();
+                            Console.WriteLine($"Board saved with ID: {boardId}");
 
-                    // ExecuteScalar returns the id of the newly inserted record
-                    int boardId = (int)command.ExecuteScalar();
-                    Console.WriteLine($"Board saved with ID: {boardId}");
-                    return boardId;
+                            // Step 2: salvez shapeurile regulare
+                            foreach (Shape regularShape in board.DrawingDataShapes)
+                            {
+                                using (NpgsqlCommand regularShapeCommand = new NpgsqlCommand("INSERT INTO regular_shapes (board_id, type, linewidth, color, startpoint_x, startpoint_y, endpoint_x, endpoint_y) VALUES (@boardId, @type, @linewidth, @color, @startpoint_x, @startpoint_y, @endpoint_x, @endpoint_y)", connection))
+                                {
+                                    regularShapeCommand.Parameters.AddWithValue("@boardId", boardId);
+
+                                    Console.WriteLine(regularShape.width);
+
+                                    switch (regularShape)
+                                    {
+                                        case TriangleShape triangleShape:
+                                            regularShapeCommand.Parameters.AddWithValue("@type", "TriangleShape");
+                                            break;
+                                        case SquareShape squareShape:
+                                            regularShapeCommand.Parameters.AddWithValue("@type", "SquareShape");
+                                            break;
+                                        case RectangleShape rectangleShape:
+                                            regularShapeCommand.Parameters.AddWithValue("@type", "RectangleShape");
+                                            break;
+                                        case LineShape lineShape:
+                                            regularShapeCommand.Parameters.AddWithValue("@type", "LineShape");
+                                            break;
+                                        case EllipseShape ellipseShape:
+                                            regularShapeCommand.Parameters.AddWithValue("@type", "EllipseShape");
+                                            break;
+                                        case CircleShape circleShape:
+                                            regularShapeCommand.Parameters.AddWithValue("@type", "CircleShape");
+                                            break;
+                                        default:
+                                            break;
+                                    }
+
+                                    regularShapeCommand.Parameters.AddWithValue("@linewidth", regularShape.width);
+                                    regularShapeCommand.Parameters.AddWithValue("@color", regularShape.color.ToArgb());
+                                    regularShapeCommand.Parameters.AddWithValue("@startpoint_x", regularShape.startPoint.X);
+                                    regularShapeCommand.Parameters.AddWithValue("@startpoint_y", regularShape.startPoint.Y);
+                                    regularShapeCommand.Parameters.AddWithValue("@endpoint_x", regularShape.endPoint.X);
+                                    regularShapeCommand.Parameters.AddWithValue("@endpoint_y", regularShape.endPoint.Y);
+                                    regularShapeCommand.ExecuteNonQuery();
+                                }
+                            }
+
+                            // Step 3: salvez shapeuri freehand
+                            foreach (FreehandShape freehandShape in board.DrawingFreehandShapes)
+                            {
+                                using (NpgsqlCommand freehandShapeCommand = new NpgsqlCommand("INSERT INTO freehand_shapes (board_id, linewidth, color) VALUES (@boardId, @linewidth, @color) RETURNING id", connection))
+                                {
+                                    freehandShapeCommand.Parameters.AddWithValue("@boardId", boardId);
+                                    freehandShapeCommand.Parameters.AddWithValue("@linewidth", freehandShape.width);
+                                    freehandShapeCommand.Parameters.AddWithValue("@color", freehandShape.color.ToArgb());
+                                    int freehandShapeId = (int)freehandShapeCommand.ExecuteScalar();
+
+                                    // Step 4: salvez fiecare punct din lista de puncte
+                                    foreach (Point point in freehandShape.freehandPoints)
+                                    {
+                                        using (NpgsqlCommand lineCommand = new NpgsqlCommand("INSERT INTO points (freehandshape_id, point_x, point_y) VALUES (@freehandShapeId, @point_x, @point_y)", connection))
+                                        {
+                                            lineCommand.Parameters.AddWithValue("@freehandShapeId", freehandShapeId);
+                                            lineCommand.Parameters.AddWithValue("@point_x", point.X);
+                                            lineCommand.Parameters.AddWithValue("@point_y", point.Y);
+                                            lineCommand.ExecuteNonQuery();
+                                        }
+                                    }
+                                }
+                            }
+
+                            transaction.Commit();
+                            return boardId;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error during transaction: {ex.Message}");
+
+                        transaction.Rollback();
+                        return -1;
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error adding new board to the database: {ex.Message}");
-                return -1; // Indicate failure
+                Console.WriteLine($"Error opening connection: {ex.Message}");
+                return -1;
             }
             finally
             {
@@ -178,6 +338,8 @@ namespace Udraw
 
 
 
+
     }
 
 }
+

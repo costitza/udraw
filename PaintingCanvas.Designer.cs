@@ -388,7 +388,6 @@
             this.Controls.Add(this.panelDrawing);
             this.Controls.Add(this.panelSidebar);
             this.Controls.Add(this.panelTopbar);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PaintingCanvas";
             this.Text = "udraw";

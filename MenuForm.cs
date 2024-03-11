@@ -14,7 +14,7 @@ namespace Udraw
     public partial class MenuForm : Form
     {
         private List<Board> boards;
-
+        private Timer doubleClickTimer = new Timer();
         public MenuForm()
         {
             InitializeComponent();
@@ -31,28 +31,32 @@ namespace Udraw
 
         private void MenuForm_Load(object sender, EventArgs e)
         {
-            NpgsqlConnection connection = new NpgsqlConnection(DatabaseConfig.Instance.GetConnectionString());
-            boards = DatabaseHelper.GetAllBoards(connection);
-
-            foreach (var board in boards)
-            {
-                Console.WriteLine($"Board ID: {board.Id}, Name: {board.Name}");
-            }
-
+            buttonDrawings.Visible = false;
             GenerateBoardButtons();
         }
 
+
         private void GenerateBoardButtons()
         {
+            if(boards != null)
+            {
+                boards.Clear();
+            }
+            
+            NpgsqlConnection connection = new NpgsqlConnection(DatabaseConfig.Instance.GetConnectionString());
+            boards = DatabaseHelper.GetAllBoards(connection);
+
+
             int buttonWidth = 150;
-            int buttonHeight = 50;
+            int buttonHeight = 60;
             int spacing = 10;
             int x = 10;
             int y = 10;
+            Font buttonFont = new Font("Rockwell", 10, FontStyle.Bold);
 
             foreach (Board board in boards)
             {
-                Button boardButton = new Button
+                DoubleClickButton boardButton = new DoubleClickButton
                 {
                     Text = board.Name,
                     Width = buttonWidth,
@@ -62,11 +66,9 @@ namespace Udraw
                 };
 
                 
-                Random random = new Random();
-                Color randomColor = Color.FromArgb(random.Next(256), random.Next(256), random.Next(256));
-                boardButton.BackColor = randomColor;
-
-                boardButton.Click += BoardButton_Click;
+                boardButton.BackColor = Color.Peru;
+                boardButton.Font = buttonFont;
+                boardButton.DoubleClick += BoardButton_DoubleClick;
 
                 panelBoards.Controls.Add(boardButton);
 
@@ -74,28 +76,26 @@ namespace Udraw
             }
         }
 
-        private void BoardButton_Click(object sender, EventArgs e)
+        private void BoardButton_DoubleClick(object sender, EventArgs e)
         {
-            // Handle the click event for the board button
+            //Console.WriteLine("Double-click event triggered!");
+
             Button clickedButton = (Button)sender;
             Board selectedBoard = (Board)clickedButton.Tag;
 
-            // Now you can use the selectedBoard object to access the information of the clicked board
-            // For example, you can open a new form with the drawing data of the selected board
             OpenDrawingForm(selectedBoard);
         }
 
         private void OpenDrawingForm(Board selectedBoard)
         {
-            // Implement the logic to open a new form with the drawing data of the selected board
-            // You can pass the selectedBoard object to the new form
-            // For example, you can create a new instance of the DrawingForm and pass the selectedBoard to its constructor
+
             PaintingCanvas paintingCanvas = new PaintingCanvas(selectedBoard);
             paintingCanvas.Show();
         }
 
         private void buttonBoards_Click(object sender, EventArgs e)
         {
+            panelBoards.Controls.Clear();
             GenerateBoardButtons();
         }
     }

@@ -7,10 +7,10 @@ namespace Udraw.Shapes
 {
     class SquareShape : Shape
     {
-        private Point startPoint;
-        private Point endPoint;
-        private Color color;
-        private int width;
+        public override Point startPoint { get; set; }
+        public override Point endPoint { get; set; }
+        public override Color color { get; set; }
+        public override int width { get; set; }
 
         public SquareShape(Point startPoint, Point endPoint, Color color, int width)
         {

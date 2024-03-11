@@ -92,6 +92,7 @@ namespace Udraw
 
         private void PaintingCanvas_Load(object sender, EventArgs e)
         {
+            pictureBoxFill.Visible = false;
             pictureBoxCurrentColour.BackColor = currentLineColor;
             GenerateColorButtons();
             pictureBoxCurrentLine.Image = Image.FromFile(Application.StartupPath + @"\thinline.jpeg");
@@ -296,6 +297,7 @@ namespace Udraw
         private void buttonClear_Click(object sender, EventArgs e)
         {
             drawnShapes.Clear();
+            drawnFreehandShapes.Clear();
             resetVariables();
             panelDrawing.Invalidate();
         }

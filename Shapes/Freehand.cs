@@ -8,9 +8,9 @@ namespace Udraw
 {
     public class FreehandShape
     {
-        private List<Point> freehandPoints;
-        private Color color;
-        private int width;
+        public List<Point> freehandPoints { get; set; }
+        public Color color { get; set; }
+        public int width { get; set; }
 
         public FreehandShape(List<Point> freehandPoints, Color color, int width)
         {

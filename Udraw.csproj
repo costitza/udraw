@@ -102,6 +102,9 @@
     <Compile Include="Board.cs" />
     <Compile Include="DatabaseConfig.cs" />
     <Compile Include="DatabaseHelper.cs" />
+    <Compile Include="DoubleClickButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MenuForm.cs">
       <SubType>Form</SubType>
     </Compile>

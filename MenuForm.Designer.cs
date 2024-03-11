@@ -35,7 +35,7 @@
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonDrawings = new System.Windows.Forms.Button();
             this.buttonBoards = new System.Windows.Forms.Button();
-            this.panelBoards = new System.Windows.Forms.Panel();
+            this.panelBoards = new System.Windows.Forms.TableLayoutPanel();
             this.panelAction.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -111,17 +111,26 @@
             // panelBoards
             // 
             this.panelBoards.BackColor = System.Drawing.Color.Bisque;
+            this.panelBoards.ColumnCount = 4;
+            this.panelBoards.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.panelBoards.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.panelBoards.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.panelBoards.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.panelBoards.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelBoards.Location = new System.Drawing.Point(235, 0);
             this.panelBoards.Name = "panelBoards";
-            this.panelBoards.Size = new System.Drawing.Size(558, 511);
+            this.panelBoards.RowCount = 3;
+            this.panelBoards.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.panelBoards.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.panelBoards.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.panelBoards.Size = new System.Drawing.Size(640, 511);
             this.panelBoards.TabIndex = 1;
             // 
             // MenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(793, 511);
+            this.ClientSize = new System.Drawing.Size(875, 511);
             this.Controls.Add(this.panelBoards);
             this.Controls.Add(this.panelAction);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -137,11 +146,11 @@
         #endregion
 
         private System.Windows.Forms.Panel panelAction;
-        private System.Windows.Forms.Panel panelBoards;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button buttonDrawings;
         private System.Windows.Forms.Button buttonBoards;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonAdd;
+        private System.Windows.Forms.TableLayoutPanel panelBoards;
     }
 }

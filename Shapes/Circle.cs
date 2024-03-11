@@ -7,10 +7,10 @@ namespace Udraw.Shapes
 {
     class CircleShape : Shape
     {
-        private Point startPoint;
-        private Point endPoint;
-        private Color color;
-        private int width;
+        public override Point startPoint { get; set; }
+        public override Point endPoint { get; set; }
+        public override Color color { get; set; }
+        public override int width { get; set; }
 
         public CircleShape(Point startPoint, Point endPoint, Color color, int width)
         {
@@ -51,17 +51,32 @@ namespace Udraw.Shapes
         {
             try
             {
-                // Deserialize the JSON string into a CircleShape instance
-                CircleShape circleShape = JsonSerializer.Deserialize<CircleShape>(json);
+                // Deserialize the JSON string into a dictionary
+                Dictionary<string, object> shapeProperties = JsonSerializer.Deserialize<Dictionary<string, object>>(json);
 
-                // Return the deserialized CircleShape
-                return circleShape;
+                // Extract values from the dictionary
+                int x = Convert.ToInt32(((JsonElement)shapeProperties["StartPoint"]).GetProperty("X").GetInt32());
+                int y = Convert.ToInt32(((JsonElement)shapeProperties["StartPoint"]).GetProperty("Y").GetInt32());
+                Point startPoint = new Point(x, y);
+
+                x = Convert.ToInt32(((JsonElement)shapeProperties["EndPoint"]).GetProperty("X").GetInt32());
+                y = Convert.ToInt32(((JsonElement)shapeProperties["EndPoint"]).GetProperty("Y").GetInt32());
+                Point endPoint = new Point(x, y);
+
+                int colorArgb = Convert.ToInt32(shapeProperties["Color"]);
+                Color color = Color.FromArgb(colorArgb);
+
+                int width = Convert.ToInt32(shapeProperties["Width"]);
+
+                // Create a new CircleShape instance using the extracted values
+                return new CircleShape(startPoint, endPoint, color, width);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error deserializing CircleShape from JSON: {ex.Message}");
-                return null;
+                Console.WriteLine($"Error during CircleShape deserialization: {ex.Message}");
+                return null; // Handle the error accordingly in your application
             }
         }
+
     }
 }
