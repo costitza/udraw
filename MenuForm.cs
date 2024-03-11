@@ -15,6 +15,7 @@ namespace Udraw
     {
         private List<Board> boards;
         private Timer doubleClickTimer = new Timer();
+        private Board selectedBoardForDelete = null;
         public MenuForm()
         {
             InitializeComponent();
@@ -38,11 +39,11 @@ namespace Udraw
 
         private void GenerateBoardButtons()
         {
-            if(boards != null)
+            if (boards != null)
             {
                 boards.Clear();
             }
-            
+
             NpgsqlConnection connection = new NpgsqlConnection(DatabaseConfig.Instance.GetConnectionString());
             boards = DatabaseHelper.GetAllBoards(connection);
 
@@ -65,15 +66,24 @@ namespace Udraw
                     Tag = board
                 };
 
-                
+
                 boardButton.BackColor = Color.Peru;
                 boardButton.Font = buttonFont;
                 boardButton.DoubleClick += BoardButton_DoubleClick;
+                boardButton.Click += BoardButton_Click;
 
+                boardButton.Cursor = Cursors.Hand;
                 panelBoards.Controls.Add(boardButton);
 
                 y += buttonHeight + spacing;
             }
+        }
+
+
+        private void BoardButton_Click(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            selectedBoardForDelete = (Board)button.Tag;
         }
 
         private void BoardButton_DoubleClick(object sender, EventArgs e)
@@ -97,6 +107,26 @@ namespace Udraw
         {
             panelBoards.Controls.Clear();
             GenerateBoardButtons();
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            if(selectedBoardForDelete != null)
+            {
+                int boardId = selectedBoardForDelete.Id;
+
+                NpgsqlConnection connection = new NpgsqlConnection(DatabaseConfig.Instance.GetConnectionString());
+                bool success = DatabaseHelper.DeleteBoard(connection, boardId);
+
+                if (success)
+                {
+                    MessageBox.Show("Board deleted successfully.");
+                }
+                else
+                {
+                    MessageBox.Show("Error deleting the board.");
+                }
+            }
         }
     }
 }

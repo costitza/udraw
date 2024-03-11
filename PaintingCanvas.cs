@@ -170,7 +170,13 @@ namespace Udraw
         {
 
         }
-
+        private void pictureBoxEraser_Click(object sender, EventArgs e)
+        {
+            resetVariables();
+            currentShape = SelectedShape.Freehand;
+            currentLineColor = Color.White;
+            pictureBoxCurrentShape.Image = Image.FromFile(Application.StartupPath + @"\eraser.jpg");
+        }
 
         ///  MOD DE DESENARE - INITIALIZARE
         private void pictureBoxPencil_Click(object sender, EventArgs e)
@@ -225,7 +231,7 @@ namespace Udraw
         private void GenerateColorButtons()
         {
             List<Color> colors = new List<Color> {Color.Black, Color.Red, Color.Green, Color.Blue, Color.Yellow, Color.Magenta,
-                Color.Cyan, Color.Orange, Color.Olive, Color.DarkTurquoise, Color.Gold, Color.DarkKhaki, Color.Lime, Color.White,
+                Color.Cyan, Color.Orange, Color.Olive, Color.DarkTurquoise, Color.Gold, Color.DarkKhaki, Color.Lime, Color.Fuchsia,
                 Color.OrangeRed, Color.Navy, Color.Moccasin, Color.MediumVioletRed};
 
             int buttonWidth = 30;
@@ -300,6 +306,7 @@ namespace Udraw
             drawnFreehandShapes.Clear();
             resetVariables();
             panelDrawing.Invalidate();
+            pictureBoxCurrentShape.Image = Image.FromFile(Application.StartupPath + @"\shapes\none.png");
         }
 
         // SALVARE IN BAZA DE DATE
@@ -312,5 +319,7 @@ namespace Udraw
 
             saveForm.ShowDialog();
         }
+
+        
     }
 }

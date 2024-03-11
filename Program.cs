@@ -60,22 +60,7 @@ namespace Udraw
             DatabaseConfig.Instance.Password = GetConnectionStringPartValue(connectionStringParts, "password");
             DatabaseConfig.Instance.Database = GetConnectionStringPartValue(connectionStringParts, "Database");
 
-            /*var databaseConfig = new DatabaseConfig
-            {
-                Host = GetConnectionStringPartValue(connectionStringParts, "Host"),
-                Port = GetConnectionStringPartIntValue(connectionStringParts, "Port"),
-                Username = GetConnectionStringPartValue(connectionStringParts, "username"),
-                Password = GetConnectionStringPartValue(connectionStringParts, "password"),
-                Database = GetConnectionStringPartValue(connectionStringParts, "Database")
-            };*/
-
-            /*Console.WriteLine($"Host: {databaseConfig.Host}");
-            Console.WriteLine($"Port: {databaseConfig.Port}");
-            Console.WriteLine($"Username: {databaseConfig.Username}");
-            Console.WriteLine($"Password: {databaseConfig.Password}");
-            Console.WriteLine($"Database: {databaseConfig.Database}");*/
-
-            //string connectionString = $"Host={databaseConfig.Host};Port={databaseConfig.Port};Username={databaseConfig.Username};Password={databaseConfig.Password};Database={databaseConfig.Database}";
+            
             string connectionString = DatabaseConfig.Instance.GetConnectionString();
 
 

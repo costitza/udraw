@@ -36,37 +36,5 @@ namespace Udraw.Shapes
                 g.DrawRectangle(pen, rect);
             }
         }
-
-        public override string ToJson()
-        {
-            // Create a dictionary to represent the shape properties
-            var shapeProperties = new Dictionary<string, object>
-            {
-                { "Type", "SquareShape" },
-                { "StartPoint", new { X = startPoint.X, Y = startPoint.Y } },
-                { "EndPoint", new { X = endPoint.X, Y = endPoint.Y } },
-                { "Color", color.ToArgb() },
-                { "Width", width }
-            };
-
-            // Serialize the dictionary to JSON
-            return JsonSerializer.Serialize(shapeProperties);
-        }
-        public static SquareShape FromJson(string json)
-        {
-            try
-            {
-                // Deserialize the JSON string into a SquareShape instance
-                SquareShape squareShape = JsonSerializer.Deserialize<SquareShape>(json);
-
-                // Return the deserialized SquareShape
-                return squareShape;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error deserializing SquareShape from JSON: {ex.Message}");
-                return null;
-            }
-        }
     }
 }

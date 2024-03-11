@@ -18,7 +18,6 @@ namespace Udraw
         public Shape() { }
 
         public abstract void Draw(Graphics g);
-        public abstract string ToJson();
 
         ///public virtual List<Point> FreehandPoints { get; set; } = new List<Point>();
     }

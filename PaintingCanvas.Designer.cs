@@ -31,20 +31,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PaintingCanvas));
             this.panelTopbar = new System.Windows.Forms.Panel();
             this.labelCurrentLine = new System.Windows.Forms.Label();
-            this.pictureBoxCurrentLine = new System.Windows.Forms.PictureBox();
             this.labelColor = new System.Windows.Forms.Label();
             this.buttonClear = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
-            this.pictureBoxThickline = new System.Windows.Forms.PictureBox();
             this.panelCurrentColour = new System.Windows.Forms.Panel();
-            this.pictureBoxCurrentColour = new System.Windows.Forms.PictureBox();
-            this.pictureBoxFill = new System.Windows.Forms.PictureBox();
-            this.pictureBoxPencil = new System.Windows.Forms.PictureBox();
             this.panelColourSection = new System.Windows.Forms.Panel();
-            this.pictureBoxMidline = new System.Windows.Forms.PictureBox();
-            this.pictureBoxThinline = new System.Windows.Forms.PictureBox();
             this.panelSidebar = new System.Windows.Forms.Panel();
             this.labelCurrentShape = new System.Windows.Forms.Label();
+            this.panelDrawing = new System.Windows.Forms.Panel();
             this.pictureBoxCurrentShape = new System.Windows.Forms.PictureBox();
             this.pictureBoxLine = new System.Windows.Forms.PictureBox();
             this.pictureBoxTriangle = new System.Windows.Forms.PictureBox();
@@ -52,16 +46,16 @@
             this.pictureBoxCircle = new System.Windows.Forms.PictureBox();
             this.pictureBoxSquare = new System.Windows.Forms.PictureBox();
             this.pictureBoxRectangle = new System.Windows.Forms.PictureBox();
-            this.panelDrawing = new System.Windows.Forms.Panel();
+            this.pictureBoxEraser = new System.Windows.Forms.PictureBox();
+            this.pictureBoxCurrentLine = new System.Windows.Forms.PictureBox();
+            this.pictureBoxThickline = new System.Windows.Forms.PictureBox();
+            this.pictureBoxCurrentColour = new System.Windows.Forms.PictureBox();
+            this.pictureBoxFill = new System.Windows.Forms.PictureBox();
+            this.pictureBoxPencil = new System.Windows.Forms.PictureBox();
+            this.pictureBoxMidline = new System.Windows.Forms.PictureBox();
+            this.pictureBoxThinline = new System.Windows.Forms.PictureBox();
             this.panelTopbar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentLine)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxThickline)).BeginInit();
             this.panelCurrentColour.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentColour)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFill)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPencil)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMidline)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxThinline)).BeginInit();
             this.panelSidebar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentShape)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLine)).BeginInit();
@@ -70,11 +64,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCircle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSquare)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRectangle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEraser)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentLine)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxThickline)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentColour)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFill)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPencil)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMidline)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxThinline)).BeginInit();
             this.SuspendLayout();
             // 
             // panelTopbar
             // 
             this.panelTopbar.BackColor = System.Drawing.Color.Tan;
+            this.panelTopbar.Controls.Add(this.pictureBoxEraser);
             this.panelTopbar.Controls.Add(this.labelCurrentLine);
             this.panelTopbar.Controls.Add(this.pictureBoxCurrentLine);
             this.panelTopbar.Controls.Add(this.labelColor);
@@ -90,7 +93,7 @@
             this.panelTopbar.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTopbar.Location = new System.Drawing.Point(0, 0);
             this.panelTopbar.Name = "panelTopbar";
-            this.panelTopbar.Size = new System.Drawing.Size(1010, 180);
+            this.panelTopbar.Size = new System.Drawing.Size(1028, 180);
             this.panelTopbar.TabIndex = 0;
             // 
             // labelCurrentLine
@@ -98,28 +101,18 @@
             this.labelCurrentLine.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelCurrentLine.AutoSize = true;
             this.labelCurrentLine.Font = new System.Drawing.Font("Rockwell", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCurrentLine.Location = new System.Drawing.Point(420, 141);
+            this.labelCurrentLine.Location = new System.Drawing.Point(429, 141);
             this.labelCurrentLine.Name = "labelCurrentLine";
             this.labelCurrentLine.Size = new System.Drawing.Size(206, 20);
             this.labelCurrentLine.TabIndex = 13;
             this.labelCurrentLine.Text = "Current line thickness:";
-            // 
-            // pictureBoxCurrentLine
-            // 
-            this.pictureBoxCurrentLine.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pictureBoxCurrentLine.Location = new System.Drawing.Point(650, 141);
-            this.pictureBoxCurrentLine.Name = "pictureBoxCurrentLine";
-            this.pictureBoxCurrentLine.Size = new System.Drawing.Size(104, 24);
-            this.pictureBoxCurrentLine.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxCurrentLine.TabIndex = 12;
-            this.pictureBoxCurrentLine.TabStop = false;
             // 
             // labelColor
             // 
             this.labelColor.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelColor.AutoSize = true;
             this.labelColor.Font = new System.Drawing.Font("Rockwell", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelColor.Location = new System.Drawing.Point(100, 157);
+            this.labelColor.Location = new System.Drawing.Point(109, 157);
             this.labelColor.Name = "labelColor";
             this.labelColor.Size = new System.Drawing.Size(87, 20);
             this.labelColor.TabIndex = 0;
@@ -130,10 +123,11 @@
             // 
             this.buttonClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClear.BackColor = System.Drawing.Color.Peru;
+            this.buttonClear.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonClear.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonClear.Location = new System.Drawing.Point(791, 87);
+            this.buttonClear.Location = new System.Drawing.Point(846, 87);
             this.buttonClear.Name = "buttonClear";
-            this.buttonClear.Size = new System.Drawing.Size(207, 67);
+            this.buttonClear.Size = new System.Drawing.Size(170, 67);
             this.buttonClear.TabIndex = 6;
             this.buttonClear.Text = "CLEAR";
             this.buttonClear.UseVisualStyleBackColor = false;
@@ -144,113 +138,34 @@
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonSave.BackColor = System.Drawing.Color.Peru;
+            this.buttonSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonSave.Font = new System.Drawing.Font("Rockwell", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSave.Location = new System.Drawing.Point(791, 23);
+            this.buttonSave.Location = new System.Drawing.Point(846, 23);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(207, 47);
+            this.buttonSave.Size = new System.Drawing.Size(170, 47);
             this.buttonSave.TabIndex = 5;
             this.buttonSave.Text = "SAVE";
             this.buttonSave.UseVisualStyleBackColor = false;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
-            // 
-            // pictureBoxThickline
-            // 
-            this.pictureBoxThickline.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pictureBoxThickline.BackColor = System.Drawing.Color.White;
-            this.pictureBoxThickline.Image = global::Udraw.Properties.Resources.thickline;
-            this.pictureBoxThickline.Location = new System.Drawing.Point(614, 79);
-            this.pictureBoxThickline.Name = "pictureBoxThickline";
-            this.pictureBoxThickline.Size = new System.Drawing.Size(104, 21);
-            this.pictureBoxThickline.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxThickline.TabIndex = 11;
-            this.pictureBoxThickline.TabStop = false;
-            this.pictureBoxThickline.Click += new System.EventHandler(this.pictureBoxThickline_Click);
             // 
             // panelCurrentColour
             // 
             this.panelCurrentColour.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panelCurrentColour.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelCurrentColour.Controls.Add(this.pictureBoxCurrentColour);
-            this.panelCurrentColour.Location = new System.Drawing.Point(298, 3);
+            this.panelCurrentColour.Location = new System.Drawing.Point(307, 3);
             this.panelCurrentColour.Name = "panelCurrentColour";
             this.panelCurrentColour.Size = new System.Drawing.Size(94, 174);
             this.panelCurrentColour.TabIndex = 1;
             // 
-            // pictureBoxCurrentColour
-            // 
-            this.pictureBoxCurrentColour.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxCurrentColour.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.pictureBoxCurrentColour.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxCurrentColour.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxCurrentColour.Location = new System.Drawing.Point(23, 72);
-            this.pictureBoxCurrentColour.Name = "pictureBoxCurrentColour";
-            this.pictureBoxCurrentColour.Size = new System.Drawing.Size(46, 41);
-            this.pictureBoxCurrentColour.TabIndex = 9;
-            this.pictureBoxCurrentColour.TabStop = false;
-            // 
-            // pictureBoxFill
-            // 
-            this.pictureBoxFill.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pictureBoxFill.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.pictureBoxFill.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxFill.Image = global::Udraw.Properties.Resources.fill;
-            this.pictureBoxFill.Location = new System.Drawing.Point(516, 25);
-            this.pictureBoxFill.Name = "pictureBoxFill";
-            this.pictureBoxFill.Size = new System.Drawing.Size(77, 72);
-            this.pictureBoxFill.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxFill.TabIndex = 8;
-            this.pictureBoxFill.TabStop = false;
-            // 
-            // pictureBoxPencil
-            // 
-            this.pictureBoxPencil.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pictureBoxPencil.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.pictureBoxPencil.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxPencil.Image = global::Udraw.Properties.Resources.pencil_modified;
-            this.pictureBoxPencil.Location = new System.Drawing.Point(414, 25);
-            this.pictureBoxPencil.Name = "pictureBoxPencil";
-            this.pictureBoxPencil.Size = new System.Drawing.Size(77, 72);
-            this.pictureBoxPencil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxPencil.TabIndex = 7;
-            this.pictureBoxPencil.TabStop = false;
-            this.pictureBoxPencil.Click += new System.EventHandler(this.pictureBoxPencil_Click);
-            // 
             // panelColourSection
             // 
             this.panelColourSection.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.panelColourSection.Location = new System.Drawing.Point(3, 3);
+            this.panelColourSection.Location = new System.Drawing.Point(12, 3);
             this.panelColourSection.Name = "panelColourSection";
             this.panelColourSection.Size = new System.Drawing.Size(289, 151);
             this.panelColourSection.TabIndex = 0;
             this.panelColourSection.Paint += new System.Windows.Forms.PaintEventHandler(this.panelColourSection_Paint);
-            // 
-            // pictureBoxMidline
-            // 
-            this.pictureBoxMidline.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pictureBoxMidline.BackColor = System.Drawing.Color.Snow;
-            this.pictureBoxMidline.Image = global::Udraw.Properties.Resources.midline;
-            this.pictureBoxMidline.Location = new System.Drawing.Point(614, 52);
-            this.pictureBoxMidline.Name = "pictureBoxMidline";
-            this.pictureBoxMidline.Size = new System.Drawing.Size(104, 21);
-            this.pictureBoxMidline.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxMidline.TabIndex = 10;
-            this.pictureBoxMidline.TabStop = false;
-            this.pictureBoxMidline.Click += new System.EventHandler(this.pictureBoxMidline_Click);
-            // 
-            // pictureBoxThinline
-            // 
-            this.pictureBoxThinline.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pictureBoxThinline.BackColor = System.Drawing.Color.Snow;
-            this.pictureBoxThinline.Image = global::Udraw.Properties.Resources.thinline;
-            this.pictureBoxThinline.Location = new System.Drawing.Point(614, 25);
-            this.pictureBoxThinline.Name = "pictureBoxThinline";
-            this.pictureBoxThinline.Size = new System.Drawing.Size(104, 21);
-            this.pictureBoxThinline.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxThinline.TabIndex = 9;
-            this.pictureBoxThinline.TabStop = false;
-            this.pictureBoxThinline.Click += new System.EventHandler(this.pictureBoxThinline_Click);
             // 
             // panelSidebar
             // 
@@ -281,6 +196,16 @@
             this.labelCurrentShape.TabIndex = 14;
             this.labelCurrentShape.Text = "Current shape:";
             // 
+            // panelDrawing
+            // 
+            this.panelDrawing.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelDrawing.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelDrawing.Location = new System.Drawing.Point(206, 180);
+            this.panelDrawing.Name = "panelDrawing";
+            this.panelDrawing.Size = new System.Drawing.Size(822, 412);
+            this.panelDrawing.TabIndex = 2;
+            this.panelDrawing.Paint += new System.Windows.Forms.PaintEventHandler(this.panelDrawing_Paint);
+            // 
             // pictureBoxCurrentShape
             // 
             this.pictureBoxCurrentShape.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -299,6 +224,7 @@
             this.pictureBoxLine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBoxLine.BackColor = System.Drawing.Color.White;
             this.pictureBoxLine.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxLine.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBoxLine.Image = global::Udraw.Properties.Resources.line;
             this.pictureBoxLine.Location = new System.Drawing.Point(118, 197);
             this.pictureBoxLine.Name = "pictureBoxLine";
@@ -311,6 +237,7 @@
             // 
             this.pictureBoxTriangle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBoxTriangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxTriangle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBoxTriangle.Image = global::Udraw.Properties.Resources.triangle;
             this.pictureBoxTriangle.Location = new System.Drawing.Point(25, 197);
             this.pictureBoxTriangle.Name = "pictureBoxTriangle";
@@ -324,6 +251,7 @@
             this.pictureBoxEllipse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBoxEllipse.BackColor = System.Drawing.Color.Snow;
             this.pictureBoxEllipse.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxEllipse.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBoxEllipse.Image = global::Udraw.Properties.Resources.ellipse;
             this.pictureBoxEllipse.Location = new System.Drawing.Point(118, 115);
             this.pictureBoxEllipse.Name = "pictureBoxEllipse";
@@ -336,6 +264,7 @@
             // 
             this.pictureBoxCircle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBoxCircle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxCircle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBoxCircle.Image = global::Udraw.Properties.Resources.circle;
             this.pictureBoxCircle.Location = new System.Drawing.Point(25, 115);
             this.pictureBoxCircle.Name = "pictureBoxCircle";
@@ -348,6 +277,7 @@
             // 
             this.pictureBoxSquare.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBoxSquare.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxSquare.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBoxSquare.Image = global::Udraw.Properties.Resources.square;
             this.pictureBoxSquare.Location = new System.Drawing.Point(118, 25);
             this.pictureBoxSquare.Name = "pictureBoxSquare";
@@ -361,6 +291,7 @@
             this.pictureBoxRectangle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBoxRectangle.BackColor = System.Drawing.Color.Snow;
             this.pictureBoxRectangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxRectangle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBoxRectangle.Image = global::Udraw.Properties.Resources.rectangle;
             this.pictureBoxRectangle.Location = new System.Drawing.Point(25, 25);
             this.pictureBoxRectangle.Name = "pictureBoxRectangle";
@@ -369,22 +300,122 @@
             this.pictureBoxRectangle.TabIndex = 0;
             this.pictureBoxRectangle.TabStop = false;
             // 
-            // panelDrawing
+            // pictureBoxEraser
             // 
-            this.panelDrawing.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelDrawing.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelDrawing.Location = new System.Drawing.Point(206, 180);
-            this.panelDrawing.Name = "panelDrawing";
-            this.panelDrawing.Size = new System.Drawing.Size(804, 412);
-            this.panelDrawing.TabIndex = 2;
-            this.panelDrawing.Paint += new System.Windows.Forms.PaintEventHandler(this.panelDrawing_Paint);
+            this.pictureBoxEraser.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBoxEraser.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.pictureBoxEraser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxEraser.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBoxEraser.Image = global::Udraw.Properties.Resources.Eraser;
+            this.pictureBoxEraser.Location = new System.Drawing.Point(521, 25);
+            this.pictureBoxEraser.Name = "pictureBoxEraser";
+            this.pictureBoxEraser.Size = new System.Drawing.Size(77, 72);
+            this.pictureBoxEraser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxEraser.TabIndex = 14;
+            this.pictureBoxEraser.TabStop = false;
+            this.pictureBoxEraser.Click += new System.EventHandler(this.pictureBoxEraser_Click);
+            // 
+            // pictureBoxCurrentLine
+            // 
+            this.pictureBoxCurrentLine.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBoxCurrentLine.Location = new System.Drawing.Point(659, 141);
+            this.pictureBoxCurrentLine.Name = "pictureBoxCurrentLine";
+            this.pictureBoxCurrentLine.Size = new System.Drawing.Size(104, 24);
+            this.pictureBoxCurrentLine.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxCurrentLine.TabIndex = 12;
+            this.pictureBoxCurrentLine.TabStop = false;
+            // 
+            // pictureBoxThickline
+            // 
+            this.pictureBoxThickline.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBoxThickline.BackColor = System.Drawing.Color.White;
+            this.pictureBoxThickline.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBoxThickline.Image = global::Udraw.Properties.Resources.thickline;
+            this.pictureBoxThickline.Location = new System.Drawing.Point(725, 79);
+            this.pictureBoxThickline.Name = "pictureBoxThickline";
+            this.pictureBoxThickline.Size = new System.Drawing.Size(104, 21);
+            this.pictureBoxThickline.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxThickline.TabIndex = 11;
+            this.pictureBoxThickline.TabStop = false;
+            this.pictureBoxThickline.Click += new System.EventHandler(this.pictureBoxThickline_Click);
+            // 
+            // pictureBoxCurrentColour
+            // 
+            this.pictureBoxCurrentColour.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxCurrentColour.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.pictureBoxCurrentColour.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBoxCurrentColour.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxCurrentColour.Location = new System.Drawing.Point(23, 72);
+            this.pictureBoxCurrentColour.Name = "pictureBoxCurrentColour";
+            this.pictureBoxCurrentColour.Size = new System.Drawing.Size(46, 41);
+            this.pictureBoxCurrentColour.TabIndex = 9;
+            this.pictureBoxCurrentColour.TabStop = false;
+            // 
+            // pictureBoxFill
+            // 
+            this.pictureBoxFill.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBoxFill.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.pictureBoxFill.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxFill.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBoxFill.Image = global::Udraw.Properties.Resources.fill;
+            this.pictureBoxFill.Location = new System.Drawing.Point(622, 25);
+            this.pictureBoxFill.Name = "pictureBoxFill";
+            this.pictureBoxFill.Size = new System.Drawing.Size(77, 72);
+            this.pictureBoxFill.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxFill.TabIndex = 8;
+            this.pictureBoxFill.TabStop = false;
+            // 
+            // pictureBoxPencil
+            // 
+            this.pictureBoxPencil.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBoxPencil.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.pictureBoxPencil.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxPencil.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBoxPencil.Image = global::Udraw.Properties.Resources.pencil_modified;
+            this.pictureBoxPencil.Location = new System.Drawing.Point(423, 25);
+            this.pictureBoxPencil.Name = "pictureBoxPencil";
+            this.pictureBoxPencil.Size = new System.Drawing.Size(77, 72);
+            this.pictureBoxPencil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxPencil.TabIndex = 7;
+            this.pictureBoxPencil.TabStop = false;
+            this.pictureBoxPencil.Click += new System.EventHandler(this.pictureBoxPencil_Click);
+            // 
+            // pictureBoxMidline
+            // 
+            this.pictureBoxMidline.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBoxMidline.BackColor = System.Drawing.Color.Snow;
+            this.pictureBoxMidline.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBoxMidline.Image = global::Udraw.Properties.Resources.midline;
+            this.pictureBoxMidline.Location = new System.Drawing.Point(725, 52);
+            this.pictureBoxMidline.Name = "pictureBoxMidline";
+            this.pictureBoxMidline.Size = new System.Drawing.Size(104, 21);
+            this.pictureBoxMidline.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxMidline.TabIndex = 10;
+            this.pictureBoxMidline.TabStop = false;
+            this.pictureBoxMidline.Click += new System.EventHandler(this.pictureBoxMidline_Click);
+            // 
+            // pictureBoxThinline
+            // 
+            this.pictureBoxThinline.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBoxThinline.BackColor = System.Drawing.Color.Snow;
+            this.pictureBoxThinline.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBoxThinline.Image = global::Udraw.Properties.Resources.thinline;
+            this.pictureBoxThinline.Location = new System.Drawing.Point(725, 25);
+            this.pictureBoxThinline.Name = "pictureBoxThinline";
+            this.pictureBoxThinline.Size = new System.Drawing.Size(104, 21);
+            this.pictureBoxThinline.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxThinline.TabIndex = 9;
+            this.pictureBoxThinline.TabStop = false;
+            this.pictureBoxThinline.Click += new System.EventHandler(this.pictureBoxThinline_Click);
             // 
             // PaintingCanvas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Snow;
-            this.ClientSize = new System.Drawing.Size(1010, 592);
+            this.ClientSize = new System.Drawing.Size(1028, 592);
             this.Controls.Add(this.panelDrawing);
             this.Controls.Add(this.panelSidebar);
             this.Controls.Add(this.panelTopbar);
@@ -394,14 +425,7 @@
             this.Load += new System.EventHandler(this.PaintingCanvas_Load);
             this.panelTopbar.ResumeLayout(false);
             this.panelTopbar.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentLine)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxThickline)).EndInit();
             this.panelCurrentColour.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentColour)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFill)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPencil)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMidline)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxThinline)).EndInit();
             this.panelSidebar.ResumeLayout(false);
             this.panelSidebar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentShape)).EndInit();
@@ -411,6 +435,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCircle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSquare)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRectangle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEraser)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentLine)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxThickline)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentColour)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFill)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPencil)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMidline)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxThinline)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -441,5 +473,6 @@
         private System.Windows.Forms.PictureBox pictureBoxLine;
         private System.Windows.Forms.Label labelCurrentShape;
         private System.Windows.Forms.PictureBox pictureBoxCurrentShape;
+        private System.Windows.Forms.PictureBox pictureBoxEraser;
     }
 }

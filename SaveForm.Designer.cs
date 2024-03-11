@@ -41,7 +41,7 @@
             // 
             this.textBoxBoardName.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.textBoxBoardName.Font = new System.Drawing.Font("Rockwell", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxBoardName.Location = new System.Drawing.Point(113, 140);
+            this.textBoxBoardName.Location = new System.Drawing.Point(88, 140);
             this.textBoxBoardName.Name = "textBoxBoardName";
             this.textBoxBoardName.Size = new System.Drawing.Size(138, 27);
             this.textBoxBoardName.TabIndex = 0;
@@ -51,7 +51,7 @@
             this.labelSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.labelSave.AutoSize = true;
             this.labelSave.Font = new System.Drawing.Font("Rockwell", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSave.Location = new System.Drawing.Point(81, 106);
+            this.labelSave.Location = new System.Drawing.Point(56, 106);
             this.labelSave.Name = "labelSave";
             this.labelSave.Size = new System.Drawing.Size(218, 20);
             this.labelSave.TabIndex = 1;
@@ -61,8 +61,9 @@
             // 
             this.buttonSaveBoard.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.buttonSaveBoard.BackColor = System.Drawing.Color.DarkGoldenrod;
+            this.buttonSaveBoard.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonSaveBoard.Font = new System.Drawing.Font("Rockwell", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSaveBoard.Location = new System.Drawing.Point(129, 76);
+            this.buttonSaveBoard.Location = new System.Drawing.Point(104, 76);
             this.buttonSaveBoard.Name = "buttonSaveBoard";
             this.buttonSaveBoard.Size = new System.Drawing.Size(105, 42);
             this.buttonSaveBoard.TabIndex = 2;
@@ -77,7 +78,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(374, 199);
+            this.panel1.Size = new System.Drawing.Size(324, 199);
             this.panel1.TabIndex = 3;
             // 
             // panel2
@@ -86,7 +87,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 199);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(374, 251);
+            this.panel2.Size = new System.Drawing.Size(324, 183);
             this.panel2.TabIndex = 4;
             // 
             // SaveForm
@@ -94,7 +95,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Tan;
-            this.ClientSize = new System.Drawing.Size(374, 450);
+            this.ClientSize = new System.Drawing.Size(324, 382);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "SaveForm";

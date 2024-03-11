@@ -31,52 +31,6 @@ namespace Udraw.Shapes
             }
         }
 
-        public override string ToJson()
-        {
-            // Create a dictionary to represent the shape properties
-            var shapeProperties = new Dictionary<string, object>
-            {
-                { "Type", "CircleShape" },
-                { "StartPoint", new { X = startPoint.X, Y = startPoint.Y } },
-                { "EndPoint", new { X = endPoint.X, Y = endPoint.Y } },
-                { "Color", color.ToArgb() },
-                { "Width", width }
-            };
-
-            // Serialize the dictionary to JSON
-            return JsonSerializer.Serialize(shapeProperties);
-        }
-
-        public static CircleShape FromJson(string json)
-        {
-            try
-            {
-                // Deserialize the JSON string into a dictionary
-                Dictionary<string, object> shapeProperties = JsonSerializer.Deserialize<Dictionary<string, object>>(json);
-
-                // Extract values from the dictionary
-                int x = Convert.ToInt32(((JsonElement)shapeProperties["StartPoint"]).GetProperty("X").GetInt32());
-                int y = Convert.ToInt32(((JsonElement)shapeProperties["StartPoint"]).GetProperty("Y").GetInt32());
-                Point startPoint = new Point(x, y);
-
-                x = Convert.ToInt32(((JsonElement)shapeProperties["EndPoint"]).GetProperty("X").GetInt32());
-                y = Convert.ToInt32(((JsonElement)shapeProperties["EndPoint"]).GetProperty("Y").GetInt32());
-                Point endPoint = new Point(x, y);
-
-                int colorArgb = Convert.ToInt32(shapeProperties["Color"]);
-                Color color = Color.FromArgb(colorArgb);
-
-                int width = Convert.ToInt32(shapeProperties["Width"]);
-
-                // Create a new CircleShape instance using the extracted values
-                return new CircleShape(startPoint, endPoint, color, width);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error during CircleShape deserialization: {ex.Message}");
-                return null; // Handle the error accordingly in your application
-            }
-        }
 
     }
 }

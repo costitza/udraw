@@ -335,6 +335,91 @@ namespace Udraw
             }
         }
 
+        public static bool DeleteBoard(NpgsqlConnection connection, int boardId)
+        {
+            try
+            {
+                connection.Open();
+
+                using (NpgsqlTransaction transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        // Delete regular shapes
+                        using (NpgsqlCommand deleteRegularShapesCommand = new NpgsqlCommand("DELETE FROM regular_shapes WHERE board_id = @boardId", connection))
+                        {
+                            deleteRegularShapesCommand.Parameters.AddWithValue("@boardId", boardId);
+                            deleteRegularShapesCommand.ExecuteNonQuery();
+                        }
+
+                        List <int> freehandShapeIds = new List<int>();
+
+                        using (NpgsqlCommand getFreehandShapesCommand = new NpgsqlCommand("SELECT id FROM freehand_shapes WHERE board_id = @boardId", connection))
+                        {
+                            getFreehandShapesCommand.Parameters.AddWithValue("@boardId", boardId);
+
+                            using (NpgsqlDataReader freehandShapesReader = getFreehandShapesCommand.ExecuteReader())
+                            {
+                                while (freehandShapesReader.Read())
+                                {
+                                    int freehandShapeId = Convert.ToInt32(freehandShapesReader["id"]);
+                                    freehandShapeIds.Add(freehandShapeId);
+
+                                }
+                            }
+                        }
+
+                        // Delete freehand points
+                        for(int i = 0;i < freehandShapeIds.Count(); i++)
+                        {
+                            int freehandShapeId = freehandShapeIds[i];
+
+
+                            using (NpgsqlCommand deleteFreehandPointsCommand = new NpgsqlCommand("DELETE FROM points WHERE freehandshape_id = @freehandShapeId", connection))
+                            {
+                                deleteFreehandPointsCommand.Parameters.AddWithValue("@freehandShapeId", freehandShapeId);
+                                deleteFreehandPointsCommand.ExecuteNonQuery();
+                            }
+                        }
+
+
+                        // Delete freehand shapes
+                        using (NpgsqlCommand deleteFreehandShapesCommand = new NpgsqlCommand("DELETE FROM freehand_shapes WHERE board_id = @boardId", connection))
+                        {
+                            deleteFreehandShapesCommand.Parameters.AddWithValue("@boardId", boardId);
+                            deleteFreehandShapesCommand.ExecuteNonQuery();
+                        }
+
+                        // Delete the board
+                        using (NpgsqlCommand deleteBoardCommand = new NpgsqlCommand("DELETE FROM boards WHERE id = @boardId", connection))
+                        {
+                            deleteBoardCommand.Parameters.AddWithValue("@boardId", boardId);
+                            deleteBoardCommand.ExecuteNonQuery();
+                        }
+
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error during transaction: {ex.Message}");
+
+                        transaction.Rollback();
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error opening connection: {ex.Message}");
+                return false;
+            }
+            finally
+            {
+                if (connection.State == ConnectionState.Open)
+                    connection.Close();
+            }
+        }
 
 
 

@@ -65,6 +65,7 @@
             // buttonDelete
             // 
             this.buttonDelete.BackColor = System.Drawing.Color.Red;
+            this.buttonDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonDelete.Font = new System.Drawing.Font("Showcard Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonDelete.Location = new System.Drawing.Point(34, 106);
             this.buttonDelete.Name = "buttonDelete";
@@ -72,10 +73,12 @@
             this.buttonDelete.TabIndex = 1;
             this.buttonDelete.Text = "Delete Board";
             this.buttonDelete.UseVisualStyleBackColor = false;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // buttonAdd
             // 
             this.buttonAdd.BackColor = System.Drawing.Color.Lime;
+            this.buttonAdd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonAdd.Font = new System.Drawing.Font("Showcard Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonAdd.Location = new System.Drawing.Point(34, 34);
             this.buttonAdd.Name = "buttonAdd";
@@ -99,6 +102,7 @@
             // buttonBoards
             // 
             this.buttonBoards.BackColor = System.Drawing.Color.Peru;
+            this.buttonBoards.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonBoards.Font = new System.Drawing.Font("Rockwell", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonBoards.Location = new System.Drawing.Point(44, 40);
             this.buttonBoards.Name = "buttonBoards";
