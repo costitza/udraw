@@ -52,7 +52,7 @@ namespace Udraw
 
         private void buttonSaveBoard_Click(object sender, EventArgs e)
         {
-            if(textBoxBoardName.Text != null)
+            if(textBoxBoardName.Text != "")
             {
                 SaveBoardToDatabase((string)textBoxBoardName.Text, drawingData, drawingFreehand);
                 this.Close();

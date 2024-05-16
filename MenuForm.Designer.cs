@@ -114,6 +114,7 @@
             // 
             // panelBoards
             // 
+            this.panelBoards.AutoScroll = true;
             this.panelBoards.BackColor = System.Drawing.Color.Bisque;
             this.panelBoards.ColumnCount = 4;
             this.panelBoards.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
